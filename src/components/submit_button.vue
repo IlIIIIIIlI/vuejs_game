@@ -1,0 +1,134 @@
+<template>
+  <div id="app">
+    <button
+      @click="onSubmit"
+      :class="['button', { 'button--submitted': isSubmit }]"
+    >
+      <span :class="['button__icon', { animated: isSubmit }]">
+       <font-awesome-icon icon="plane" size="1.5x" color="#FFFFFF" />
+      </span>
+      <span
+        :class="[
+          'button__text',
+          'button__default-text',
+          { animated: isSubmit }
+        ]"
+      >
+      Submit
+      </span>
+      <span
+        :class="['button__text', 'button__submit-text', { animated: isSubmit }]"
+      >
+        Submitted
+      </span>
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isSubmit: false
+    };
+  },
+
+  methods: {
+    onSubmit() {
+      this.isSubmit = true;
+    }
+  }
+};
+</script>
+
+<style lang="less">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.button {
+  position: relative;
+  padding: 0.75em 3em;
+  background-color: #1976D2;
+  border: none;
+  color: #FFFFFF;
+  border-radius: 1rem;
+  font: inherit;
+  font-weight: bold;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 2000ms ease-in-out;
+
+  .icon {
+    margin-right: 10px;
+  }
+
+  &:is(:hover, :focus) {
+    transform: translateY(-3px);
+    background-color: #1976D2;
+  }
+
+  &__text {
+    display: inline-flex;
+    align-items: center;
+    letter-spacing: 2px;
+  }
+
+  &__default-text {
+    transition: all 400ms ease-out;
+    transition-delay: 500ms;
+
+    &.animated {
+      transform: translateY(35px);
+      opacity: 0;
+    }
+  }
+
+  &__submit-text {
+    position: absolute;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -35px);
+    transition: all 500ms ease-in;
+    transition-delay: 1200ms;
+
+    &.animated {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+
+    &.animated {
+      animation: move-plane 1200ms ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes move-plane {
+
+  40% {
+    transform: translateX(-80px);
+  }
+
+  60% {
+    opacity: 0.85;
+  }
+
+  70% {
+    opacity: 0.75;
+  }
+
+  90% {
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: translateX(150px) ;
+    opacity: 0;
+  }
+}
+</style>
